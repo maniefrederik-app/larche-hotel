@@ -177,6 +177,47 @@ function renderTable(tableId, items, fields, type) {
   `).join('');
 }
 
+// Image Preview Function
+let roomImages = [];
+
+function previewRoomImages(input) {
+  const previewContainer = document.getElementById('room-image-previews');
+  previewContainer.innerHTML = '';
+  roomImages = [];
+  
+  if (input.files) {
+    Array.from(input.files).forEach((file, index) => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        roomImages.push(e.target.result);
+        const preview = document.createElement('div');
+        preview.className = 'image-preview-item';
+        preview.innerHTML = `
+          <img src="${e.target.result}" alt="Preview">
+          <button type="button" class="remove-image" onclick="removeImage(${index})">&times;</button>
+        `;
+        previewContainer.appendChild(preview);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+}
+
+function removeImage(index) {
+  roomImages.splice(index, 1);
+  const previewContainer = document.getElementById('room-image-previews');
+  previewContainer.innerHTML = '';
+  roomImages.forEach((img, i) => {
+    const preview = document.createElement('div');
+    preview.className = 'image-preview-item';
+    preview.innerHTML = `
+      <img src="${img}" alt="Preview">
+      <button type="button" class="remove-image" onclick="removeImage(${i})">&times;</button>
+    `;
+    previewContainer.appendChild(preview);
+  });
+}
+
 // Save Functions
 async function saveHotelProfile() {
   const form = document.getElementById('hotel-form');
@@ -194,11 +235,18 @@ async function saveRoom() {
   const formData = new FormData(form);
   const roomData = Object.fromEntries(formData);
   if (roomData.amenities) roomData.amenities = roomData.amenities.split(',').map(a => a.trim());
+  
+  // Add images
+  if (roomImages.length > 0) {
+    roomData.images = roomImages;
+  }
+  
   try {
     const method = id ? 'PUT' : 'POST';
     const url = id ? `/api/rooms/${id}` : '/api/rooms';
     await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(roomData) });
     closeModal('room-modal');
+    roomImages = [];
     loadRooms();
     showToast('Room saved', 'success');
   } catch (e) { showToast('Error saving', 'error'); }

@@ -398,6 +398,13 @@
               </select>
             </div>
             <div class="form-group full-width">
+              <label>Room Images</label>
+              <div class="image-upload-container">
+                <input type="file" id="room-images" name="images" class="form-control" accept="image/*" multiple onchange="previewRoomImages(this)">
+                <div id="room-image-previews" class="image-previews"></div>
+              </div>
+            </div>
+            <div class="form-group full-width">
               <label>Amenities (comma separated)</label>
               <input type="text" name="amenities" class="form-control" placeholder="WiFi, TV, AC, Mini Bar">
             </div>

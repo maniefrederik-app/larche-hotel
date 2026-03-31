@@ -312,7 +312,9 @@
         roomsGrid.innerHTML = rooms.map(room => `
           <div class="room-card-public">
             <div class="room-image-public">
-              <i class="fas fa-bed"></i>
+              ${room.images && room.images.length > 0 
+                ? `<img src="${room.images[0]}" alt="Room ${room.roomNumber}" class="room-img">`
+                : '<i class="fas fa-bed"></i>'}
               <div class="room-badge">${room.type}</div>
             </div>
             <div class="room-info-public">

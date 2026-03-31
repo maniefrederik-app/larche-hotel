@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Specials - L'Arche</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="logo">
+        <span class="logo-icon">🏨</span>
+        <h1>L'<span>Arche</span></h1>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="/"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="/hotel-profile"><i class="fas fa-building"></i> Hotel Profile</a></li>
+        <li><a href="/venues-profiles"><i class="fas fa-map-marker-alt"></i> Venues</a></li>
+        <li><a href="/room-management"><i class="fas fa-bed"></i> Rooms</a></li>
+        <li><a href="/booking-reservations"><i class="fas fa-calendar-check"></i> Bookings</a></li>
+        <li><a href="/guest-profiles"><i class="fas fa-users"></i> Guests</a></li>
+        <li><a href="/service-requests"><i class="fas fa-concierge-bell"></i> Services</a></li>
+        <li><a href="/specials" class="active"><i class="fas fa-star"></i> Specials</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="page-header">
+      <h2><i class="fas fa-star"></i> Specials & Promotions</h2>
+      <p>Manage special offers and promotional packages</p>
+    </div>
+
+    <div class="quick-actions" style="margin-bottom: 2rem;">
+      <div class="quick-action-card" onclick="openModal('add-special-modal')">
+        <i class="fas fa-plus-circle"></i>
+        <h4>Create New Special</h4>
+        <p>Add a new promotional offer</p>
+      </div>
+      <div class="quick-action-card" onclick="loadActiveSpecials()">
+        <i class="fas fa-fire"></i>
+        <h4>Active Specials</h4>
+        <p>View current promotions</p>
+      </div>
+      <div class="quick-action-card" onclick="loadAllSpecials()">
+        <i class="fas fa-list"></i>
+        <h4>All Specials</h4>
+        <p>Browse all promotions</p>
+      </div>
+    </div>
+
+    <div class="grid-3" id="specials-grid">
+      <!-- Special cards will be loaded dynamically -->
+    </div>
+  </div>
+
+  <!-- Add/Edit Special Modal -->
+  <div class="modal-overlay" id="add-special-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="special-modal-title">Create New Special</h3>
+        <button class="modal-close" onclick="closeModal('add-special-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="special-form">
+          <input type="hidden" name="id" id="special-id">
+          <div class="form-group">
+            <label>Special Name</label>
+            <input type="text" class="form-control" name="name" required placeholder="e.g., Weekend Getaway Package">
+          </div>
+          <div class="form-group">
+            <label>Special Type</label>
+            <select class="form-control" name="type" required>
+              <option value="">Select Type</option>
+              <option value="room_discount">Room Discount</option>
+              <option value="package">Package Deal</option>
+              <option value="seasonal">Seasonal Offer</option>
+              <option value="loyalty">Loyalty Reward</option>
+              <option value="early_bird">Early Bird</option>
+              <option value="last_minute">Last Minute</option>
+              <option value="weekend">Weekend Special</option>
+              <option value="honeymoon">Honeymoon Package</option>
+              <option value="corporate">Corporate Offer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" name="description" rows="4" required placeholder="Describe the special offer..."></textarea>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Original Price ($)</label>
+              <input type="number" class="form-control" name="originalPrice" step="0.01">
+            </div>
+            <div class="form-group">
+              <label>Discounted Price ($)</label>
+              <input type="number" class="form-control" name="discountedPrice" step="0.01" required>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Valid From</label>
+              <input type="date" class="form-control" name="validFrom" required>
+            </div>
+            <div class="form-group">
+              <label>Valid Until</label>
+              <input type="date" class="form-control" name="validUntil" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Included Amenities (comma separated)</label>
+            <input type="text" class="form-control" name="includedAmenities" placeholder="Breakfast, Spa Access, Late Checkout">
+          </div>
+          <div class="form-group">
+            <label>Terms & Conditions</label>
+            <textarea class="form-control" name="terms" rows="3" placeholder="Any restrictions or conditions..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Maximum Bookings</label>
+            <input type="number" class="form-control" name="maxBookings" placeholder="Leave empty for unlimited">
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select class="form-control" name="active">
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('add-special-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveSpecial()">Save Special</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    let specials = [];
+
+    async function loadAllSpecials() {
+      try {
+        specials = await apiRequest('/api/specials');
+        renderSpecials();
+      } catch (error) {
+        console.error('Error loading specials:', error);
+      }
+    }
+
+    async function loadActiveSpecials() {
+      try {
+        specials = await apiRequest('/api/specials/active');
+        renderSpecials();
+      } catch (error) {
+        console.error('Error loading active specials:', error);
+      }
+    }
+
+    function renderSpecials() {
+      const grid = document.getElementById('specials-grid');
+      
+      if (specials.length === 0) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><i class="fas fa-star"></i><h4>No specials found</h4><p>Create your first special offer</p></div>';
+        return;
+      }
+      
+      grid.innerHTML = specials.map(special => {
+        const discount = special.originalPrice ? 
+          Math.round((1 - special.discountedPrice / special.originalPrice) * 100) : 0;
+        const isActive = special.active && new Date(special.validUntil) >= new Date();
+        
+        return `
+          <div class="card" style="position: relative; overflow: hidden;">
+            ${discount > 0 ? `<div style="position: absolute; top: 10px; right: 10px; background: var(--danger-color); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600;">-${discount}%</div>` : ''}
+            <div style="text-align: center; padding: 1rem 0;">
+              <i class="fas fa-${getSpecialIcon(special.type)}" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;"></i>
+              <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">${special.name}</h4>
+              <span class="badge badge-${isActive ? 'success' : 'danger'}">${isActive ? 'Active' : 'Inactive'}</span>
+            </div>
+            <p style="margin-bottom: 1rem; color: var(--text-secondary);">${special.description?.substring(0, 100)}${special.description?.length > 100 ? '...' : ''}</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <div>
+                ${special.originalPrice ? `<span style="text-decoration: line-through; color: var(--text-secondary);">${formatCurrency(special.originalPrice)}</span>` : ''}
+                <span style="font-size: 1.5rem; font-weight: 600; color: var(--accent-color); margin-left: 0.5rem;">${formatCurrency(special.discountedPrice)}</span>
+              </div>
+            </div>
+            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              <i class="fas fa-calendar"></i> ${formatDate(special.validFrom)} - ${formatDate(special.validUntil)}
+            </div>
+            ${special.includedAmenities?.length ? `
+              <div style="margin-bottom: 1rem;">
+                <strong style="font-size: 0.875rem;">Includes:</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                  ${special.includedAmenities.map(a => `<span class="amenity-tag">${a}</span>`).join('')}
+                </div>
+              </div>
+            ` : ''}
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-sm btn-secondary" style="flex: 1;" onclick="editSpecial('${special.id}')">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="deleteSpecial('${special.id}')">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function getSpecialIcon(type) {
+      const icons = {
+        'room_discount': 'bed',
+        'package': 'gift',
+        'seasonal': 'snowflake',
+        'loyalty': 'crown',
+        'early_bird': 'sun',
+        'last_minute': 'bolt',
+        'weekend': 'calendar-week',
+        'honeymoon': 'heart',
+        'corporate': 'building'
+      };
+      return icons[type] || 'star';
+    }
+
+    async function saveSpecial() {
+      const form = document.getElementById('special-form');
+      const id = document.getElementById('special-id').value;
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+      
+      if (data.includedAmenities) {
+        data.includedAmenities = data.includedAmenities.split(',').map(a => a.trim());
+      }
+      data.originalPrice = data.originalPrice ? parseFloat(data.originalPrice) : null;
+      data.discountedPrice = parseFloat(data.discountedPrice);
+      data.active = data.active === 'true';
+      if (data.maxBookings) data.maxBookings = parseInt(data.maxBookings);
+      
+      try {
+        if (id) {
+          await apiRequest(`/api/specials/${id}`, 'PUT', data);
+          showToast('Special updated successfully', 'success');
+        } else {
+          await apiRequest('/api/specials', 'POST', data);
+          showToast('Special created successfully', 'success');
+        }
+        closeModal('add-special-modal');
+        form.reset();
+        loadAllSpecials();
+      } catch (error) {
+        showToast('Error saving special', 'error');
+      }
+    }
+
+    function editSpecial(id) {
+      const special = specials.find(s => s.id === id);
+      if (!special) return;
+      
+      document.getElementById('special-modal-title').textContent = 'Edit Special';
+      document.getElementById('special-id').value = id;
+      
+      const form = document.getElementById('special-form');
+      Object.keys(special).forEach(key => {
+        const input = form.querySelector(`[name="${key}"]`);
+        if (input) {
+          if (key === 'includedAmenities' && Array.isArray(special[key])) {
+            input.value = special[key].join(', ');
+          } else if (key === 'active') {
+            input.value = special[key].toString();
+          } else {
+            input.value = special[key];
+          }
+        }
+      });
+      
+      openModal('add-special-modal');
+    }
+
+    async function deleteSpecial(id) {
+      if (!confirm('Are you sure you want to delete this special?')) return;
+      
+      try {
+        await apiRequest(`/api/specials/${id}`, 'DELETE');
+        showToast('Special deleted successfully', 'success');
+        loadAllSpecials();
+      } catch (error) {
+        showToast('Error deleting special', 'error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadAllSpecials);
+  </script>
+</body>
+</html>

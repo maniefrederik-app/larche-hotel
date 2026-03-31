@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Arche Hotel & Venue Estate</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-content">
+      <div class="logo">
+        <span class="logo-icon">🏨</span>
+        <h1>L'<span>Arche</span></h1>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="/" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="/hotel-profile"><i class="fas fa-building"></i> Hotel Profile</a></li>
+        <li><a href="/venues-profiles"><i class="fas fa-map-marker-alt"></i> Venues</a></li>
+        <li><a href="/room-management"><i class="fas fa-bed"></i> Rooms</a></li>
+        <li><a href="/booking-reservations"><i class="fas fa-calendar-check"></i> Bookings</a></li>
+        <li><a href="/guest-profiles"><i class="fas fa-users"></i> Guests</a></li>
+        <li><a href="/service-requests"><i class="fas fa-concierge-bell"></i> Services</a></li>
+        <li><a href="/specials"><i class="fas fa-star"></i> Specials</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="hero">
+      <h2>Welcome to L'Arche Hotel & Venue Estate</h2>
+      <p>Experience luxury, elegance, and world-class hospitality at our prestigious hotel and venue estate.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue">
+          <i class="fas fa-bed"></i>
+        </div>
+        <div class="stat-info">
+          <h4 id="total-rooms">0</h4>
+          <p>Total Rooms</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">
+          <i class="fas fa-calendar-check"></i>
+        </div>
+        <div class="stat-info">
+          <h4 id="total-bookings">0</h4>
+          <p>Active Bookings</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon orange">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-info">
+          <h4 id="total-guests">0</h4>
+          <p>Registered Guests</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div class="stat-info">
+          <h4 id="total-venues">0</h4>
+          <p>Event Venues</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);">Quick Actions</h3>
+    <div class="quick-actions">
+      <a href="/hotel-profile" class="quick-action-card">
+        <i class="fas fa-building"></i>
+        <h4>Hotel Profile</h4>
+        <p>View and edit hotel information</p>
+      </a>
+      <a href="/venues-profiles" class="quick-action-card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h4>Venues Profiles</h4>
+        <p>Manage event venues</p>
+      </a>
+      <a href="/room-management" class="quick-action-card">
+        <i class="fas fa-bed"></i>
+        <h4>Room Management</h4>
+        <p>Add and manage rooms</p>
+      </a>
+      <a href="/booking-reservations" class="quick-action-card">
+        <i class="fas fa-calendar-check"></i>
+        <h4>Booking & Reservations</h4>
+        <p>Manage bookings</p>
+      </a>
+      <a href="/guest-profiles" class="quick-action-card">
+        <i class="fas fa-users"></i>
+        <h4>Guest Profiles</h4>
+        <p>Manage guest information</p>
+      </a>
+      <a href="/service-requests" class="quick-action-card">
+        <i class="fas fa-concierge-bell"></i>
+        <h4>Service Requests</h4>
+        <p>Handle service requests</p>
+      </a>
+      <a href="/specials" class="quick-action-card">
+        <i class="fas fa-star"></i>
+        <h4>Specials</h4>
+        <p>Manage special offers</p>
+      </a>
+      <a href="/venue-management" class="quick-action-card">
+        <i class="fas fa-cogs"></i>
+        <h4>Venue Management</h4>
+        <p>Configure venue settings</p>
+      </a>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-calendar"></i> Recent Bookings</h3>
+          <a href="/booking-reservations" class="btn btn-sm btn-secondary">View All</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table" id="recent-bookings-table">
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <th>Room</th>
+                <th>Check-in</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4" class="empty-state">No bookings yet</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-concierge-bell"></i> Pending Services</h3>
+          <a href="/service-requests" class="btn btn-sm btn-secondary">View All</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table" id="pending-services-table">
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <th>Service</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="4" class="empty-state">No pending services</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDashboardStats();
+      loadRecentBookings();
+      loadPendingServices();
+    });
+
+    async function loadDashboardStats() {
+      try {
+        const [rooms, bookings, guests, venues] = await Promise.all([
+          fetch('/api/rooms').then(r => r.json()),
+          fetch('/api/bookings').then(r => r.json()),
+          fetch('/api/guests').then(r => r.json()),
+          fetch('/api/venues').then(r => r.json())
+        ]);
+        document.getElementById('total-rooms').textContent = rooms.length || 0;
+        document.getElementById('total-bookings').textContent = bookings.filter(b => b.status === 'confirmed').length || 0;
+        document.getElementById('total-guests').textContent = guests.length || 0;
+        document.getElementById('total-venues').textContent = venues.length || 0;
+      } catch (error) {
+        console.error('Error loading stats:', error);
+      }
+    }
+
+    async function loadRecentBookings() {
+      try {
+        const bookings = await fetch('/api/bookings').then(r => r.json());
+        const tbody = document.querySelector('#recent-bookings-table tbody');
+        if (bookings.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No bookings yet</td></tr>';
+          return;
+        }
+        tbody.innerHTML = bookings.slice(0, 5).map(booking => `
+          <tr>
+            <td>${booking.guestName || 'N/A'}</td>
+            <td>${booking.roomType || 'N/A'}</td>
+            <td>${formatDate(booking.checkIn)}</td>
+            <td><span class="badge badge-${getStatusClass(booking.status)}">${booking.status}</span></td>
+          </tr>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading bookings:', error);
+      }
+    }
+
+    async function loadPendingServices() {
+      try {
+        const services = await fetch('/api/services').then(r => r.json());
+        const tbody = document.querySelector('#pending-services-table tbody');
+        const pending = services.filter(s => s.status === 'pending');
+        if (pending.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No pending services</td></tr>';
+          return;
+        }
+        tbody.innerHTML = pending.slice(0, 5).map(service => `
+          <tr>
+            <td>${service.guestName || 'N/A'}</td>
+            <td>${service.type || 'N/A'}</td>
+            <td><span class="badge badge-warning">${service.status}</span></td>
+            <td><button class="btn btn-sm btn-primary" onclick="completeService('${service.id}')">Complete</button></td>
+          </tr>
+        `).join('');
+      } catch (error) {
+        console.error('Error loading services:', error);
+      }
+    }
+
+    async function completeService(id) {
+      try {
+        await fetch(`/api/services/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: 'completed' })
+        });
+        showToast('Service marked as completed', 'success');
+        loadPendingServices();
+      } catch (error) {
+        showToast('Error updating service', 'error');
+      }
+    }
+  </script>
+</body>
+</html>

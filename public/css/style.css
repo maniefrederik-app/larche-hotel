@@ -469,7 +469,31 @@ body {
   font-size: 0.9rem;
 }
 
+.room-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-explore-room {
+  flex: 1;
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-explore-room:hover {
+  background: var(--gold);
+  color: var(--black);
+}
+
 .btn-room-book {
+  flex: 1;
   display: block;
   text-align: center;
   background: var(--gold);
@@ -1202,4 +1226,180 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gold);
+}
+
+/* Room Explore Modal */
+.room-modal-explore {
+  max-width: 800px;
+}
+
+.explore-main-image {
+  width: 100%;
+  height: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 2px solid var(--gold-dark);
+}
+
+.explore-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.explore-gallery {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.explore-img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.explore-img:hover,
+.explore-img.active {
+  border-color: var(--gold);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.explore-no-image {
+  text-align: center;
+  padding: 3rem;
+  background: var(--black);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.explore-no-image i {
+  font-size: 4rem;
+  color: var(--gold-dark);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.explore-details h4 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--black);
+  border-radius: 8px;
+}
+
+.info-item i {
+  color: var(--gold);
+  width: 20px;
+}
+
+.info-item span {
+  color: var(--white);
+  font-size: 0.9rem;
+}
+
+.explore-amenities {
+  margin-bottom: 1.5rem;
+}
+
+.amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.amenities-list span {
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--gold);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  border: 1px solid var(--gold-dark);
+}
+
+.amenities-list span i {
+  margin-right: 0.5rem;
+}
+
+.explore-price-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background: var(--black);
+  border-radius: 12px;
+  border: 1px solid var(--gold-dark);
+}
+
+.explore-price .price-label {
+  display: block;
+  color: var(--gray);
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.explore-price .price-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.btn-book-explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--gold);
+  color: var(--black);
+  padding: 1rem 2rem;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-book-explore:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .explore-main-image {
+    height: 200px;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .explore-price-section {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
 }

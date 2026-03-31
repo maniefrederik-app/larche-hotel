@@ -8,8 +8,8 @@ const app = express();
 let data = {
   hotel: { 
     profile: { 
-      name: "Three Countries Estate", 
-      description: "The Three Countries Estate is an exceptional hotel and event venue situated in the heart of Gauteng, South Africa. Located at the corner of Smith and Small Street, Benoni, this establishment offers a unique and captivating experience for business trips or tourists.", 
+      name: "L'Arche De La Vie Hotel & Venue Estate", 
+      description: "The L'Arche De La Vie is an exceptional hotel and event venue situated in the heart of Gauteng, South Africa. Located at the corner of Smith and Small Street, Benoni, this establishment offers a unique and captivating experience for business trips or tourists.", 
       starRating: "5", 
       yearEstablished: "2010",
       address: "Cnr Smith and Small Street",
@@ -18,7 +18,7 @@ let data = {
       province: "Gauteng",
       postalCode: "1513",
       phone: "+27 11 123 4567",
-      email: "info@threecountriesestate.co.za"
+      email: "info@larchedelavie.co.za"
     } 
   },
   rooms: [

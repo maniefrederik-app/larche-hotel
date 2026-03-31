@@ -314,6 +314,28 @@ body {
   line-height: 1.8;
 }
 
+.about-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.about-gallery-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--gold-dark);
+  transition: all 0.3s ease;
+}
+
+.about-gallery-img:hover {
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  transform: scale(1.02);
+}
+
 .about-features {
   display: flex;
   gap: 2rem;

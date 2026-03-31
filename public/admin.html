@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - L'Arche de la Vie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="admin-page">
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <img src="/logo1.PNG" alt="L'Arche de la Vie" class="sidebar-logo">
+        <h2>Admin Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/admin" class="nav-item active" data-section="dashboard">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-item" data-section="hotel">
+          <i class="fas fa-building"></i>
+          <span>Hotel Profile</span>
+        </a>
+        <a href="#" class="nav-item" data-section="rooms">
+          <i class="fas fa-bed"></i>
+          <span>Rooms</span>
+        </a>
+        <a href="#" class="nav-item" data-section="venues">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Venues</span>
+        </a>
+        <a href="#" class="nav-item" data-section="bookings">
+          <i class="fas fa-calendar-check"></i>
+          <span>Bookings</span>
+        </a>
+        <a href="#" class="nav-item" data-section="guests">
+          <i class="fas fa-users"></i>
+          <span>Guests</span>
+        </a>
+        <a href="#" class="nav-item" data-section="services">
+          <i class="fas fa-concierge-bell"></i>
+          <span>Services</span>
+        </a>
+        <a href="#" class="nav-item" data-section="specials">
+          <i class="fas fa-star"></i>
+          <span>Specials</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="/" class="back-to-site">
+          <i class="fas fa-globe"></i>
+          <span>View Public Site</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <!-- Header -->
+      <header class="admin-header">
+        <div class="header-left">
+          <button class="menu-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 id="page-title">Dashboard</h1>
+        </div>
+        <div class="header-right">
+          <div class="admin-user">
+            <i class="fas fa-user-circle"></i>
+            <span>Administrator</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="admin-content">
+        <!-- Dashboard Section -->
+        <section id="section-dashboard" class="admin-section active">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fas fa-bed"></i></div>
+              <div class="stat-info">
+                <h4 id="stat-rooms">0</h4>
+                <p>Total Rooms</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+              <div class="stat-info">
+                <h4 id="stat-bookings">0</h4>
+                <p>Active Bookings</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fas fa-users"></i></div>
+              <div class="stat-info">
+                <h4 id="stat-guests">0</h4>
+                <p>Total Guests</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div class="stat-info">
+                <h4 id="stat-venues">0</h4>
+                <p>Venues</p>
+              </div>
+            </div>
+          </div>
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3><i class="fas fa-calendar"></i> Recent Bookings</h3>
+              </div>
+              <div class="table-responsive">
+                <table class="table" id="recent-bookings">
+                  <thead>
+                    <tr>
+                      <th>Guest</th>
+                      <th>Room</th>
+                      <th>Check-in</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3><i class="fas fa-bell"></i> Pending Services</h3>
+              </div>
+              <div class="table-responsive">
+                <table class="table" id="pending-services">
+                  <thead>
+                    <tr>
+                      <th>Guest</th>
+                      <th>Service</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hotel Profile Section -->
+        <section id="section-hotel" class="admin-section">
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-building"></i> Hotel Profile</h3>
+              <button class="btn btn-primary" onclick="saveHotelProfile()"><i class="fas fa-save"></i> Save</button>
+            </div>
+            <form id="hotel-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Hotel Name</label>
+                  <input type="text" name="name" class="form-control" value="L'Arche de la Vie Hotel & Venue Estate">
+                </div>
+                <div class="form-group">
+                  <label>Star Rating</label>
+                  <select name="starRating" class="form-control">
+                    <option value="5">5 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="3">3 Stars</option>
+                  </select>
+                </div>
+                <div class="form-group full-width">
+                  <label>Description</label>
+                  <textarea name="description" class="form-control" rows="4">Welcome to L'Arche de la Vie Hotel & Venue Estate, where luxury meets elegance.</textarea>
+                </div>
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" name="address" class="form-control" value="123 Royal Avenue">
+                </div>
+                <div class="form-group">
+                  <label>City</label>
+                  <input type="text" name="city" class="form-control" value="Paris">
+                </div>
+                <div class="form-group">
+                  <label>Phone</label>
+                  <input type="tel" name="phone" class="form-control" value="+33 1 23 45 67 89">
+                </div>
+                <div class="form-group">
+                  <label>Email</label>
+                  <input type="email" name="email" class="form-control" value="contact@larche-hotel.com">
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- Rooms Section -->
+        <section id="section-rooms" class="admin-section">
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-bed"></i> Room Management</h3>
+              <button class="btn btn-primary" onclick="openModal('room-modal')"><i class="fas fa-plus"></i> Add Room</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="rooms-table">
+                <thead>
+                  <tr>
+                    <th>Room #</th>
+                    <th>Type</th>
+                    <th>Floor</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Venues Section -->
+        <section id="section-venues" class="admin-section">
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-map-marker-alt"></i> Venue Management</h3>
+              <button class="btn btn-primary" onclick="openModal('venue-modal')"><i class="fas fa-plus"></i> Add Venue</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="venues-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Capacity</th>
+                    <th>Price/Hour</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Bookings Section -->
+        <section id="section-bookings" class="admin-section">
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-calendar-check"></i> Booking Management</h3>
+              <button class="btn btn-primary" onclick="openModal('booking-modal')"><i class="fas fa-plus"></i> New Booking</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="bookings-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Guest</th>
+                    <th>Room</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Guests Section -->
+        <section id="section-guests" class="admin-section">
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-users"></i> Guest Profiles</h3>
+              <button class="btn btn-primary" onclick="openModal('guest-modal')"><i class="fas fa-plus"></i> Add Guest</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="guests-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>VIP Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="section-services" class="admin-section">
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-concierge-bell"></i> Service Requests</h3>
+              <button class="btn btn-primary" onclick="openModal('service-modal')"><i class="fas fa-plus"></i> New Request</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="services-table">
+                <thead>
+                  <tr>
+                    <th>Guest</th>
+                    <th>Room</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Specials Section -->
+        <section id="section-specials" class="admin-section">
+          <div class="card">
+            <div class="card-header">
+              <h3><i class="fas fa-star"></i> Specials & Offers</h3>
+              <button class="btn btn-primary" onclick="openModal('special-modal')"><i class="fas fa-plus"></i> Add Special</button>
+            </div>
+            <div class="table-responsive">
+              <table class="table" id="specials-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Original Price</th>
+                    <th>Discounted</th>
+                    <th>Valid Until</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Room Modal -->
+  <div class="modal-overlay" id="room-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="room-modal-title">Add Room</h3>
+        <button class="modal-close" onclick="closeModal('room-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="room-form">
+          <input type="hidden" name="id" id="room-id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Room Number</label>
+              <input type="text" name="roomNumber" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Type</label>
+              <select name="type" class="form-control" required>
+                <option value="standard">Standard</option>
+                <option value="deluxe">Deluxe</option>
+                <option value="suite">Suite</option>
+                <option value="presidential">Presidential</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Floor</label>
+              <input type="number" name="floor" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Price/Night ($)</label>
+              <input type="number" name="price" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Max Occupancy</label>
+              <input type="number" name="maxOccupancy" class="form-control" value="2">
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select name="status" class="form-control">
+                <option value="available">Available</option>
+                <option value="occupied">Occupied</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Amenities (comma separated)</label>
+              <input type="text" name="amenities" class="form-control" placeholder="WiFi, TV, AC, Mini Bar">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('room-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveRoom()">Save Room</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Venue Modal -->
+  <div class="modal-overlay" id="venue-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="venue-modal-title">Add Venue</h3>
+        <button class="modal-close" onclick="closeModal('venue-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="venue-form">
+          <input type="hidden" name="id" id="venue-id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Venue Name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Type</label>
+              <select name="type" class="form-control" required>
+                <option value="ballroom">Ballroom</option>
+                <option value="conference">Conference Room</option>
+                <option value="garden">Garden</option>
+                <option value="terrace">Terrace</option>
+                <option value="banquet">Banquet Hall</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Capacity</label>
+              <input type="number" name="capacity" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Price/Hour ($)</label>
+              <input type="number" name="pricePerHour" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select name="status" class="form-control">
+                <option value="available">Available</option>
+                <option value="booked">Booked</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea name="description" class="form-control" rows="3"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('venue-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveVenue()">Save Venue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>New Booking</h3>
+        <button class="modal-close" onclick="closeModal('booking-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="booking-form">
+          <input type="hidden" name="id" id="booking-id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Guest Name</label>
+              <input type="text" name="guestName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Room Type</label>
+              <select name="roomType" class="form-control" required>
+                <option value="standard">Standard</option>
+                <option value="deluxe">Deluxe</option>
+                <option value="suite">Suite</option>
+                <option value="presidential">Presidential</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Total Amount ($)</label>
+              <input type="number" name="totalAmount" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Check-in</label>
+              <input type="date" name="checkIn" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Check-out</label>
+              <input type="date" name="checkOut" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select name="status" class="form-control">
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="checked-in">Checked In</option>
+                <option value="checked-out">Checked Out</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Special Requests</label>
+              <textarea name="specialRequests" class="form-control" rows="2"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('booking-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveBooking()">Save Booking</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guest Modal -->
+  <div class="modal-overlay" id="guest-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add Guest</h3>
+        <button class="modal-close" onclick="closeModal('guest-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="guest-form">
+          <input type="hidden" name="id" id="guest-id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" name="phone" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>VIP Status</label>
+              <select name="vipStatus" class="form-control">
+                <option value="regular">Regular</option>
+                <option value="silver">Silver</option>
+                <option value="gold">Gold</option>
+                <option value="platinum">Platinum</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Preferences</label>
+              <textarea name="preferences" class="form-control" rows="2"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('guest-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveGuest()">Save Guest</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Modal -->
+  <div class="modal-overlay" id="service-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>New Service Request</h3>
+        <button class="modal-close" onclick="closeModal('service-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="service-form">
+          <input type="hidden" name="id" id="service-id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Guest Name</label>
+              <input type="text" name="guestName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Room Number</label>
+              <input type="text" name="roomNumber" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Service Type</label>
+              <select name="type" class="form-control" required>
+                <option value="housekeeping">Housekeeping</option>
+                <option value="room_service">Room Service</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="concierge">Concierge</option>
+                <option value="laundry">Laundry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Priority</label>
+              <select name="priority" class="form-control">
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+                <option value="urgent">Urgent</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea name="description" class="form-control" rows="3" required></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('service-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveService()">Submit Request</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Special Modal -->
+  <div class="modal-overlay" id="special-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add Special</h3>
+        <button class="modal-close" onclick="closeModal('special-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="special-form">
+          <input type="hidden" name="id" id="special-id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Type</label>
+              <select name="type" class="form-control">
+                <option value="package">Package Deal</option>
+                <option value="discount">Discount</option>
+                <option value="seasonal">Seasonal</option>
+                <option value="weekend">Weekend Special</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Original Price ($)</label>
+              <input type="number" name="originalPrice" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Discounted Price ($)</label>
+              <input type="number" name="discountedPrice" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Valid From</label>
+              <input type="date" name="validFrom" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Valid Until</label>
+              <input type="date" name="validUntil" class="form-control" required>
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea name="description" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label>Status</label>
+              <select name="active" class="form-control">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('special-modal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveSpecial()">Save Special</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

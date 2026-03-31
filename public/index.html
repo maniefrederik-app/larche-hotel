@@ -322,7 +322,7 @@
                 ${(room.amenities || []).map(a => `<span><i class="fas fa-check"></i> ${a}</span>`).join('')}
               </div>
               <div class="room-price">
-                <span class="price">$${room.price || '150'}</span>
+                <span class="price">R${room.price || '150'}</span>
                 <span class="per-night">per night</span>
               </div>
               <a href="#booking" class="btn-room-book">Book Now</a>
@@ -342,7 +342,7 @@
               <p class="venue-capacity"><i class="fas fa-users"></i> Up to ${venue.capacity} guests</p>
               <p class="venue-description">${venue.description || ''}</p>
               <div class="venue-price">
-                <span class="price">$${venue.pricePerHour || '500'}</span>
+                <span class="price">R${venue.pricePerHour || '500'}</span>
                 <span class="per-hour">per hour</span>
               </div>
               <a href="#contact" class="btn-venue-inquire">Inquire Now</a>
@@ -359,8 +359,8 @@
               <h3>${special.name}</h3>
               <p>${special.description}</p>
               <div class="special-pricing">
-                ${special.originalPrice ? `<span class="original-price">$${special.originalPrice}</span>` : ''}
-                <span class="special-price">$${special.discountedPrice}</span>
+                ${special.originalPrice ? `<span class="original-price">R${special.originalPrice}</span>` : ''}
+                <span class="special-price">R${special.discountedPrice}</span>
               </div>
               <a href="#booking" class="btn-special-book">Book This Offer</a>
             </div>

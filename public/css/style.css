@@ -476,15 +476,23 @@ select.form-control {
 
 /* Hero Section */
 .hero {
-  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-dark) 100%);
-  color: var(--black);
-  padding: 4rem 2rem;
+  background: 
+    linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.7)),
+    url('/logo2.png') center/cover no-repeat;
+  color: var(--white);
+  padding: 5rem 2rem;
   border-radius: 16px;
   margin-bottom: 2rem;
   text-align: center;
   box-shadow: var(--shadow-gold);
   position: relative;
   overflow: hidden;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--gold);
 }
 
 .hero::before {
@@ -494,8 +502,7 @@ select.form-control {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  opacity: 0.3;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .hero h2 {
@@ -505,14 +512,18 @@ select.form-control {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 3px;
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(212, 175, 55, 0.5), 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .hero p {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   max-width: 600px;
   margin: 0 auto;
   position: relative;
   font-weight: 500;
+  color: var(--white);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
 /* Quick Actions */

@@ -8,8 +8,8 @@ const app = express();
 let data = {
   hotel: { 
     profile: { 
-      name: "L'Arche Hotel & Venue Estate", 
-      description: "Welcome to L'Arche Hotel, where luxury meets elegance.", 
+      name: "L'Arche de la Vie Hotel & Venue Estate", 
+      description: "Welcome to L'Arche de la Vie Hotel & Venue Estate, where luxury meets elegance.", 
       starRating: "5", 
       yearEstablished: "2010",
       address: "123 Royal Avenue",

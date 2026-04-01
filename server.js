@@ -24,7 +24,7 @@ let data = {
   rooms: [
     { id: "1", roomNumber: "101", type: "standard", floor: "1", price: "150", status: "available", maxOccupancy: "2", amenities: ["WiFi", "TV", "AC"], images: ["/logo11.PNG"], createdAt: new Date().toISOString() },
     { id: "2", roomNumber: "201", type: "deluxe", floor: "2", price: "250", status: "available", maxOccupancy: "3", amenities: ["WiFi", "TV", "AC", "Mini Bar"], images: ["/logo7.PNG"], createdAt: new Date().toISOString() },
-    { id: "3", roomNumber: "301", type: "suite", floor: "3", price: "450", status: "available", maxOccupancy: "4", amenities: ["WiFi", "TV", "AC", "Mini Bar", "Jacuzzi"], createdAt: new Date().toISOString() }
+    { id: "3", roomNumber: "301", type: "suite", floor: "3", price: "450", status: "available", maxOccupancy: "4", amenities: ["WiFi", "TV", "AC", "Mini Bar", "Jacuzzi"], images: ["/logo12.PNG"], createdAt: new Date().toISOString() }
   ],
   venues: [
     { id: "1", name: "Grand Ballroom", type: "ballroom", capacity: "500", pricePerHour: "1000", status: "available", description: "Elegant ballroom for grand events", createdAt: new Date().toISOString() },
